@@ -1,0 +1,147 @@
+/* ===== Body & Container ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+    color: #333;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Page Header ===== */
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    margin-bottom: 2rem;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+    background-color: #ff7e5f;
+    border-color: #ff7e5f;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #feb47b;
+    border-color: #feb47b;
+}
+
+.btn-success {
+    background-color: #6a11cb;
+    border-color: #6a11cb;
+}
+
+.btn-success:hover {
+    background-color: #2575fc;
+    border-color: #2575fc;
+}
+
+.btn-warning {
+    background-color: #f7971e;
+    border-color: #f7971e;
+}
+
+.btn-warning:hover {
+    background-color: #ffd200;
+    border-color: #ffd200;
+}
+
+/* ===== Cards & Tables ===== */
+.card, .table {
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #6a11cb;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* ===== Card Images ===== */
+.card img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+}
+
+/* ===== Links ===== */
+a {
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* ===== Forms ===== */
+form {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    max-width: 600px;
+    margin: 2rem auto;
+}
+
+label {
+    font-weight: 600;
+    color: #333;
+}
+
+input, textarea {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 0.6rem;
+    width: 100%;
+    margin-top: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* ===== Footer / Misc ===== */
+.container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* ===== Hover Effects ===== */
+.table tbody tr:hover,
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(90deg, #fbc2eb, #a6c1ee);
+    color: #fff;
+    font-weight: bold;
+}
+
+button, a.btn {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover, a.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}

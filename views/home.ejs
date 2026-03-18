@@ -1,0 +1,247 @@
+<head>
+<meta charset="UTF-8">
+<title>Project Manager</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+background:linear-gradient(to right,#fbc2eb,#a6c1ee);
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
+
+h1{
+text-align:center;
+margin-top:30px;
+margin-bottom:20px;
+color:white;
+}
+
+.dashboard-card{
+background:white;
+padding:40px;
+margin:50px auto;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+max-width:1100px;
+}
+
+.project-card{
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+transition:transform 0.2s;
+}
+
+.project-card:hover{
+transform:translateY(-5px);
+}
+
+.project-card img{
+height:200px;
+object-fit:cover;
+}
+
+.card-footer{
+background:white;
+border:0;
+text-align:center;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>Project Manager</h1>
+
+<div class="container mb-4">
+<div class="row text-center">
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5>Total Projects</h5>
+<h3><%= works.length %></h3>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5>Active</h5>
+<h3 class="text-success">
+<%= works.filter(w => w.status === "Active").length %>
+</h3>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5>Draft</h5>
+<h3 class="text-secondary">
+<%= works.filter(w => w.status === "Draft").length %>
+</h3>
+</div>
+</div>
+</div>
+
+<div class="col-md-3 mb-3">
+<div class="card shadow-sm">
+<div class="card-body">
+<h5>Completed</h5>
+<h3 class="text-primary">
+<%= works.filter(w => w.status === "Completed").length %>
+</h3>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="dashboard-card">
+
+<div class="text-center mb-4">
+<a href="/create" class="btn btn-primary btn-lg">
++ Create New Project
+</a>
+</div>
+
+<div class="text-center mb-4">
+<h5>Total Projects: <strong id="projectCount"><%= works.length %></strong></h5>
+</div>
+
+<!-- SEARCH + FILTER -->
+<div class="row mb-4">
+
+<div class="col-md-6">
+<input 
+type="text"
+id="searchInput"
+class="form-control"
+placeholder="Search projects..."
+onkeyup="filterProjects()">
+</div>
+
+<div class="col-md-6">
+<select 
+id="statusFilter"
+class="form-select"
+onchange="filterProjects()">
+<option value="All">All Status</option>
+<option value="Active">Active</option>
+<option value="Draft">Draft</option>
+<option value="Completed">Completed</option>
+</select>
+</div>
+
+</div>
+
+<div class="row" id="projectContainer">
+
+<% works.forEach(work => { %>
+
+<div class="col-md-4 mb-4 project-item"
+data-title="<%= work.title.toLowerCase() %>"
+data-status="<%= work.status %>">
+
+<div class="card project-card">
+
+<img src="/images/Home.png" class="card-img-top">
+
+<div class="card-body text-center">
+
+<h5 class="fw-bold"><%= work.title %></h5>
+
+<p class="text-muted"><%= work.description %></p>
+
+<p class="text-muted small">
+Created:
+<%= new Date(work.createdAt).toLocaleDateString() %>
+</p>
+
+<span class="badge
+<%= work.status === 'Active' ? 'bg-success'
+: work.status === 'Draft' ? 'bg-secondary'
+: 'bg-primary' %>">
+<%= work.status %>
+</span>
+
+<div class="mt-2">
+<strong>Category:</strong> <%= work.category %>
+</div>
+
+</div>
+
+<div class="card-footer">
+
+<a href="/view/<%= work._id %>" class="btn btn-success btn-sm me-2">
+View
+</a>
+
+<a href="/edit/<%= work._id %>" class="btn btn-warning btn-sm me-2">
+Edit
+</a>
+
+<form action="/delete/<%= work._id %>" method="POST" style="display:inline;">
+<button type="submit" class="btn btn-danger btn-sm">
+Delete
+</button>
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</div>
+
+<script>
+function filterProjects(){
+
+const searchInput = document.getElementById("searchInput").value.toLowerCase();
+const statusFilter = document.getElementById("statusFilter").value;
+
+const projects = document.querySelectorAll(".project-item");
+
+let visibleCount = 0;
+
+projects.forEach(project => {
+
+const title = project.dataset.title;
+const status = project.dataset.status;
+
+let show = true;
+
+if(searchInput && !title.includes(searchInput)){
+show = false;
+}
+
+if(statusFilter !== "All" && status !== statusFilter){
+show = false;
+}
+
+project.style.display = show ? "block" : "none";
+
+if(show){
+visibleCount++;
+}
+
+});
+
+document.getElementById("projectCount").innerText = visibleCount;
+
+}
+</script>
+
+</body>
+</html>
